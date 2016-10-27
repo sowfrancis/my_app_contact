@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'roo', '~> 2.5.0'
 gem 'carrierwave'
 gem "twitter-bootstrap-rails"
 gem "iconv", "~> 1.0.3"
