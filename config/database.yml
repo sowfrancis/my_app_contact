@@ -1,0 +1,24 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+
+development:
+  <<: *default
+  database: contact_development
+  username: myapp
+  password: password
+
+
+test:
+  <<: *default
+  database: contact_test
+  username: myapp
+  password: password
+
+production:
+  <<: *default
+  database: Contact_Test_production
+  username: Contact_Test
+  password: <%= ENV['CONTACT_TEST_DATABASE_PASSWORD'] %>
