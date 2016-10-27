@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="formulaire">
+    <h4>Importez votre fichier:</h4>
+    <%= form_tag import_contacts_path, multipart: true, class: "form-group" do %>
+      <div class="import_input">
+        <%= file_field_tag :file %>
+      </div>
+      <div class="submit">
+        <%= submit_tag "Import PJ", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+  <div class="table_contact">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contacts_without_error.each do |contact| %>
+          <tr>
+            <td><%= contact.first_name %></td>
+            <td><%= contact.last_name%></td>
+            <td><%= contact.email %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="table_contact">
+    <h4> contact avec erreurs </h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+          <th>Erreur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @contacts_with_error.each do |contact| %>
+          <tr>
+            <td><%= contact.first_name %></td>
+            <td><%= contact.last_name%></td>
+            <td><%= contact.email %></td>
+            <td><%= contact.record_error %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

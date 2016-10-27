@@ -13,3 +13,41 @@
  *= require_tree .
  *= require_self
  */
+
+ body{
+ 	background-color: #F0F8FF;
+ }
+
+.container{
+	width: 90%;
+}
+
+.formulaire{
+	margin: auto;
+	width: 50%;
+	height: 50%;
+	border: 1px solid grey;
+	margin-top: 30px;
+	background-color: #FFFFFF;
+	padding: 30px;
+	box-shadow: 10px 5px 5px black;
+}
+
+.import_input{
+	margin: 30px;
+}
+
+.submit{
+	margin: 30px;
+}
+
+.table{
+	width: 50%;
+	margin:auto;
+	background-color: #FFFFFF;
+	box-shadow: 10px 5px 5px black;
+}
+
+.table_contact{
+	margin-top: 50px;
+}
