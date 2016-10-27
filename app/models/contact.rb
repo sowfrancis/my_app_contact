@@ -2,10 +2,10 @@ class Contact < ActiveRecord::Base
 	require 'csv'
 	include SaveWithErrors
 
-	validates_uniqueness_of :firstname, :lastname, :email
+	validates_uniqueness_of :first_name, :last_name, :email
 	validates_format_of :email, :with => /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 	validate :check_length
-	validate :lastname, :firstname, if: :capitalize_name? 
+	validate :last_name, :first_name, if: :capitalize_name? 
 	validate :chars_valid?
 
 	def self.import(file)
@@ -14,8 +14,8 @@ class Contact < ActiveRecord::Base
 	  (2..spreadsheet.last_row).each do |i|
 	    row = Hash[[header, spreadsheet.row(i)].transpose]
 	   	contact_hash = row.to_hash
-			contact = where(firstname: contact_hash["firstname"])
-			contact = where(lastname: contact_hash["lastname"])
+			contact = where(firstname: contact_hash["first_name"])
+			contact = where(lastname: contact_hash["last_name"])
 			contact = where(email: contact_hash["email"])
 			if contact.count == 1
 				puts "already exist"
@@ -35,28 +35,28 @@ class Contact < ActiveRecord::Base
 	end
 
 	def check_length
-		if (self.lastname || self.firstname).length < 3
+		if (self.last_name || self.first_name).length < 3
 			errors.add :lastname, 'your firstname or lastname is less than 3 character'
 		end
 	end
 
 	def capitalize_name?
-		if self.lastname[0] && self.firstname[0] == (self.lastname[0] && self.firstname[0]).upcase
+		if self.last_name[0] && self.first_name[0] == (self.last_name[0] && self.first_name[0]).upcase
 			puts "it' ok!"
 		else
-			errors.add :lastname, 'your firstname or lastname must begin with an upercase'.to_sentence
-			errors.add :firstname, 'your firstname or lastname must begin with an upercase'
-			self.lastname.capitalize!
-			self.firstname.capitalize!
+			errors.add :last_name, 'your firstname or lastname must begin with an upercase'
+			errors.add :first_name, 'your firstname or lastname must begin with an upercase'
+			self.last_name.capitalize!
+			self.first_name.capitalize!
 		end
 	end
 
 	def chars_valid?
-		if (self.lastname && self.firstname).match(/[^a-zA-Z\-]/)
-			errors.add :lastname, 'only letters is allowed'
-			errors.add :firstname, 'only letters is allowed'
-			self.firstname.gsub!(/[^a-zA-Z\-]/,"")
-			self.lastname .gsub!(/[^a-zA-Z\-]/,"")
+		if (self.last_name && self.first_name).match(/[^a-zA-Z\-]/)
+			errors.add :last_name, 'only letters is allowed'
+			errors.add :first_name, 'only letters is allowed'
+			self.first_name.gsub!(/[^a-zA-Z\-]/,"")
+			self.last_name .gsub!(/[^a-zA-Z\-]/,"")
 		end 
 	end
 end
